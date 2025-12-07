@@ -73,17 +73,9 @@
       "groupName": "docker dependencies (major)"
     },
     {
-      "description": "npm: longer wait period and only automerge with high confidence",
+      "description": "npm: longer wait period, no automerge (manual review required)",
       "matchManagers": ["npm"],
       "minimumReleaseAge": "7 days",
-      "matchConfidence": ["high", "very high"],
-      "automerge": true,
-      "automergeType": "branch"
-    },
-    {
-      "description": "npm: no automerge without high confidence",
-      "matchManagers": ["npm"],
-      "matchConfidence": ["low", "neutral"],
       "automerge": false
     },
     {
