@@ -59,10 +59,58 @@
       "automergeType": "branch"
     },
     {
-      "description": "Group Docker minor/patch updates",
+      "description": "Automerge and group Docker minor/patch updates",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "branch",
       "groupName": "docker dependencies (minor/patch)"
+    },
+    {
+      "description": "Group Docker major updates (manual review)",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "docker dependencies (major)"
+    },
+    {
+      "description": "Automerge and group npm minor/patch updates",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["dependencies"],
+      "automerge": true,
+      "automergeType": "branch",
+      "groupName": "npm dependencies (minor/patch)"
+    },
+    {
+      "description": "Group npm major updates (manual review)",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "npm dependencies (major)"
+    },
+    {
+      "description": "Automerge and group npm devDependencies",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true,
+      "automergeType": "branch",
+      "groupName": "npm devDependencies (minor/patch)"
+    },
+    {
+      "description": "Group Go major updates (manual review)",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["major"],
+      "groupName": "go dependencies (major)"
+    },
+    {
+      "description": "Group Terraform updates",
+      "matchManagers": ["terraform"],
+      "groupName": "terraform"
+    },
+    {
+      "description": "Group GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "groupName": "github actions"
     }
   ],
   "lockFileMaintenance": {
