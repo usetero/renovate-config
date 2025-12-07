@@ -1,59 +1,74 @@
 {
-    "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-    "extends": [
-        "config:best-practices",
-        ":ignoreUnstable"
-    ],
-    "packageRules": [
-        {
-            "matchManagers": [
-                "terraform"
-            ],
-            "matchDepTypes": [
-                "provider"
-            ],
-            "enabled": false
-        },
-        {
-            "matchDatasources": [
-                "github-runners",
-                "hermit"
-            ],
-            "automerge": true
-        },
-        {
-            "matchManagers": [
-                "github-actions"
-            ],
-            "automerge": true,
-            "ignoreDeps": [
-                "diggerhq/digger"
-            ]
-        },
-        {
-            "matchUpdateTypes": [
-                "minor",
-                "patch"
-            ],
-            "matchDepTypes": [
-                "devDependencies"
-            ],
-            "automerge": true
-        }
-    ],
-    "lockFileMaintenance": {
-        "enabled": true,
-        "automerge": true
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:best-practices",
+    ":ignoreUnstable",
+    "mergeConfidence:all-badges"
+  ],
+  "labels": ["dependencies"],
+  "schedule": [
+    "after 10pm every weekday",
+    "before 6am every weekday",
+    "every weekend"
+  ],
+  "minimumReleaseAge": "3 days",
+  "packageRules": [
+    {
+      "description": "Automerge minor/patch updates for Go dependencies",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "branch"
     },
-    "prConcurrentLimit": 3,
-    "prHourlyLimit": 6,
-    "vulnerabilityAlerts": {
-        "labels": [
-            "security"
-        ],
-        "schedule": [
-            "before 8am"
-        ],
-        "prConcurrentLimit": 3
+    {
+      "description": "Group Go minor/patch updates to reduce noise",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "go dependencies (minor/patch)"
+    },
+    {
+      "description": "Disable Terraform provider updates (managed separately)",
+      "matchManagers": ["terraform"],
+      "matchDepTypes": ["provider"],
+      "enabled": false
+    },
+    {
+      "description": "Automerge GitHub runners and Hermit updates",
+      "matchDatasources": ["github-runners", "hermit"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "description": "Automerge GitHub Actions (except digger)",
+      "matchManagers": ["github-actions"],
+      "automerge": true,
+      "automergeType": "branch",
+      "ignoreDeps": ["diggerhq/digger"]
+    },
+    {
+      "description": "Automerge dev dependencies minor/patch",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": ["devDependencies"],
+      "automerge": true,
+      "automergeType": "branch"
+    },
+    {
+      "description": "Group Docker minor/patch updates",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "docker dependencies (minor/patch)"
     }
+  ],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true,
+    "schedule": ["before 6am on monday"]
+  },
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 4,
+  "vulnerabilityAlerts": {
+    "labels": ["dependencies", "security"],
+    "schedule": ["at any time"],
+    "minimumReleaseAge": "0 days"
+  }
 }
