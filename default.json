@@ -27,10 +27,9 @@
       "groupName": "go dependencies (minor/patch)"
     },
     {
-      "description": "Disable Terraform provider updates (managed separately)",
+      "description": "Terraform updates require manual review (no automerge)",
       "matchManagers": ["terraform"],
-      "matchDepTypes": ["provider"],
-      "enabled": false
+      "automerge": false
     },
     {
       "description": "Automerge GitHub runners and Hermit updates",
