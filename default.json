@@ -32,10 +32,17 @@
       "automerge": false
     },
     {
-      "description": "Automerge GitHub runners and Hermit updates",
-      "matchDatasources": ["github-runners", "hermit"],
+      "description": "Automerge and group GitHub runners updates",
+      "matchDatasources": ["github-runners"],
       "automerge": true,
       "automergeType": "branch"
+    },
+    {
+      "description": "Automerge and group Hermit tool updates",
+      "matchDatasources": ["hermit"],
+      "automerge": true,
+      "automergeType": "branch",
+      "groupName": "hermit tools"
     },
     {
       "description": "Automerge GitHub Actions (except digger)",
