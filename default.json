@@ -32,8 +32,9 @@
       "automerge": false
     },
     {
-      "description": "Automerge and group GitHub runners updates",
+      "description": "Automerge and group GitHub runners updates (no stability wait)",
       "matchDatasources": ["github-runners"],
+      "minimumReleaseAge": "0 days",
       "automerge": true,
       "automergeType": "branch"
     },
@@ -46,8 +47,9 @@
       "groupName": "hermit tools"
     },
     {
-      "description": "Automerge GitHub Actions (except digger)",
+      "description": "Automerge GitHub Actions (no stability wait, except digger)",
       "matchManagers": ["github-actions"],
+      "minimumReleaseAge": "0 days",
       "automerge": true,
       "automergeType": "branch",
       "ignoreDeps": ["diggerhq/digger"]
@@ -126,6 +128,7 @@
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
+    "minimumReleaseAge": "0 days",
     "schedule": ["before 6am on monday"]
   },
   "prConcurrentLimit": 5,
