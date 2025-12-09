@@ -38,8 +38,9 @@
       "automergeType": "branch"
     },
     {
-      "description": "Automerge and group Hermit tool updates",
+      "description": "Automerge and group Hermit tool updates (no stability wait)",
       "matchDatasources": ["hermit"],
+      "minimumReleaseAge": "0 days",
       "automerge": true,
       "automergeType": "branch",
       "groupName": "hermit tools"
