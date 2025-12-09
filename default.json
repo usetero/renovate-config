@@ -113,6 +113,13 @@
       "description": "Group GitHub Actions updates",
       "matchManagers": ["github-actions"],
       "groupName": "github actions"
+    },
+    {
+      "description": "Pin activate-hermit to releases only (commits get force-pushed away)",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["cashapp/activate-hermit"],
+      "versioning": "semver",
+      "extractVersion": "^v(?<version>.*)$"
     }
   ],
   "lockFileMaintenance": {
