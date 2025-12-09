@@ -1,0 +1,8 @@
+# Hermit - only ignore the extracted packages, not the symlinks
+/bin/*.pkg/
+
+# Task
+/.task/
+
+# Node
+/node_modules/
