@@ -1,20 +1,13 @@
-name: renovate-config
+name: bot-signoff
 
 "on":
-  push:
-    paths:
-      - "default.json"
-    branches:
-      - master
   pull_request:
-    paths:
-      - "default.json"
   workflow_dispatch:
 
 jobs:
-  validate:
+  signoff:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
       - uses: cashapp/activate-hermit@v1
-      - run: task validate
+      - run: task signoff

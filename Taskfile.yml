@@ -12,3 +12,8 @@ tasks:
     aliases: [d]
     cmds:
       - task: validate
+
+  signoff:
+    desc: Full validation before merge
+    cmds:
+      - task: validate
