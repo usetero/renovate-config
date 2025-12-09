@@ -1,0 +1,14 @@
+version: "3"
+
+tasks:
+  validate:
+    desc: Validate Renovate configuration
+    cmds:
+      - npx --package renovate -c 'renovate-config-validator'
+      - npx --package renovate -c 'renovate-config-validator default.json'
+
+  do:
+    desc: Fast development loop
+    aliases: [d]
+    cmds:
+      - task: validate
