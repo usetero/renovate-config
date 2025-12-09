@@ -14,6 +14,7 @@ tasks:
       - task: validate
 
   signoff:
-    desc: Full validation before merge
+    desc: Full validation and sign off
     cmds:
       - task: validate
+      - gh signoff
