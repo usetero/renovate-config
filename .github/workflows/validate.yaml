@@ -3,12 +3,12 @@ name: renovate-config
 "on":
   push:
     paths:
-      - 'default.json'
+      - "default.json"
     branches:
-      - main
+      - master
   pull_request:
     paths:
-      - 'default.json'
+      - "default.json"
   workflow_dispatch:
 
 jobs:
