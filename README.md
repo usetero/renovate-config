@@ -1,8 +1,8 @@
 # renovate-config
 
-Shared Renovate configuration preset for Tero repositories.
+Shared Renovate configuration preset for all Tero repositories. This centralizes our dependency update policies so they're consistent across the organization.
 
-## Usage
+## Using This Preset
 
 Add this to your repository's `.github/renovate.json5`:
 
@@ -13,7 +13,9 @@ Add this to your repository's `.github/renovate.json5`:
 }
 ```
 
-## What's Included
+That's it. Your repo will inherit all the policies below.
+
+## Policies
 
 | Ecosystem | Minor/Patch | Major |
 |-----------|-------------|-------|
@@ -24,17 +26,35 @@ Add this to your repository's `.github/renovate.json5`:
 | GitHub Actions | Automerge, grouped | Grouped |
 | Hermit | Automerge, grouped | Automerge, grouped |
 
-### Schedule
+**Schedule:** Nights (10pm-6am) and weekends only. Lock file maintenance runs Monday mornings.
 
-- Runs nights (10pm-6am) and weekends only
-- Lock file maintenance: Monday mornings
-- Security alerts: Immediate (no delay)
+**Safety:** 3-day minimum release age (7 days for npm). Security alerts bypass all delays and run immediately.
 
-### Safety
+**Limits:** 5 concurrent PRs, 4 per hour.
 
-- 3-day minimum release age (7 days for npm)
-- Security/vulnerability alerts bypass all delays
-- PR limits: 5 concurrent, 4 per hour
+## Development
+
+### Setup
+
+```bash
+# Activate Hermit to get node and task
+. bin/activate-hermit
+```
+
+### Commands
+
+```bash
+task validate  # Validate the Renovate config
+task do        # Same as validate (fast dev loop)
+```
+
+### Making Changes
+
+1. Edit `default.json`
+2. Run `task validate` to check syntax
+3. Commit and push - CI will validate again
+
+Changes take effect on the next Renovate run for all repos using this preset.
 
 ## Docs
 
