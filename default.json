@@ -62,6 +62,15 @@
       "automergeType": "branch"
     },
     {
+      "description": "Docker digest updates: weekly, automerge",
+      "matchDatasources": ["docker"],
+      "matchUpdateTypes": ["digest"],
+      "schedule": ["before 6am on monday"],
+      "automerge": true,
+      "automergeType": "branch",
+      "groupName": "docker digests"
+    },
+    {
       "description": "Automerge and group Docker minor/patch updates",
       "matchDatasources": ["docker"],
       "matchUpdateTypes": ["minor", "patch"],
