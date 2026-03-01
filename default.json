@@ -5,6 +5,10 @@
     ":ignoreUnstable",
     "mergeConfidence:all-badges"
   ],
+  "platformAutomerge": true,
+  "automergeType": "pr",
+  "rebaseWhen": "behind-base-branch",
+  "ignoreTests": false,
   "labels": ["dependencies"],
   "schedule": [
     "after 10pm every weekday",
@@ -12,54 +16,72 @@
     "every weekend"
   ],
   "minimumReleaseAge": "3 days",
+  "major": {
+    "dependencyDashboardApproval": true
+  },
   "packageRules": [
     {
-      "description": "Automerge minor/patch updates for Go dependencies",
-      "matchManagers": ["gomod"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "branch"
+      "description": "Automerge safe update types when checks pass",
+      "matchUpdateTypes": ["patch", "pin", "digest"],
+      "automerge": true
     },
     {
-      "description": "Group Go minor/patch updates to reduce noise",
+      "description": "Automerge minor updates for Go dependencies",
       "matchManagers": ["gomod"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "go dependencies (minor/patch)"
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
     },
     {
-      "description": "Terraform updates require manual review (no automerge)",
+      "description": "Automerge minor updates for npm dependencies",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor"],
+      "automerge": true
+    },
+    {
+      "description": "Automerge and group Go patch updates to reduce noise",
+      "matchManagers": ["gomod"],
+      "matchUpdateTypes": ["patch"],
+      "groupName": "go dependencies (patch)"
+    },
+    {
+      "description": "Group Terraform updates",
       "matchManagers": ["terraform"],
-      "automerge": false
+      "groupName": "terraform"
     },
     {
       "description": "Automerge and group GitHub runners updates (no stability wait)",
       "matchDatasources": ["github-runners"],
+      "matchUpdateTypes": ["patch", "pin"],
       "minimumReleaseAge": "0 days",
       "automerge": true,
-      "automergeType": "branch"
+      "groupName": "github runners"
     },
     {
       "description": "Automerge and group Hermit tool updates (no stability wait)",
       "matchDatasources": ["hermit"],
+      "matchUpdateTypes": ["patch", "pin"],
       "minimumReleaseAge": "0 days",
       "automerge": true,
-      "automergeType": "branch",
       "groupName": "hermit tools"
     },
     {
       "description": "Automerge GitHub Actions (no stability wait, except digger)",
       "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["patch", "pin", "digest"],
       "minimumReleaseAge": "0 days",
-      "automerge": true,
-      "automergeType": "branch",
-      "ignoreDeps": ["diggerhq/digger"]
+      "automerge": true
     },
     {
-      "description": "Automerge dev dependencies minor/patch",
-      "matchUpdateTypes": ["minor", "patch"],
+      "description": "Do not automerge digger action updates",
+      "matchManagers": ["github-actions"],
+      "matchPackageNames": ["diggerhq/digger"],
+      "automerge": false
+    },
+    {
+      "description": "Automerge dev dependencies patch updates",
+      "matchUpdateTypes": ["patch"],
       "matchDepTypes": ["devDependencies"],
-      "automerge": true,
-      "automergeType": "branch"
+      "automerge": true
     },
     {
       "description": "Docker digest updates: weekly, automerge",
@@ -67,16 +89,14 @@
       "matchUpdateTypes": ["digest"],
       "schedule": ["before 6am on monday"],
       "automerge": true,
-      "automergeType": "branch",
       "groupName": "docker digests"
     },
     {
-      "description": "Automerge and group Docker minor/patch updates",
+      "description": "Automerge and group Docker patch updates",
       "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchUpdateTypes": ["patch"],
       "automerge": true,
-      "automergeType": "branch",
-      "groupName": "docker dependencies (minor/patch)"
+      "groupName": "docker dependencies (patch)"
     },
     {
       "description": "Group Docker major updates (manual review)",
@@ -85,10 +105,9 @@
       "groupName": "docker dependencies (major)"
     },
     {
-      "description": "npm: longer wait period, no automerge (manual review required)",
+      "description": "npm: longer wait period",
       "matchManagers": ["npm"],
-      "minimumReleaseAge": "7 days",
-      "automerge": false
+      "minimumReleaseAge": "7 days"
     },
     {
       "description": "Group npm minor/patch updates",
@@ -115,11 +134,6 @@
       "matchManagers": ["gomod"],
       "matchUpdateTypes": ["major"],
       "groupName": "go dependencies (major)"
-    },
-    {
-      "description": "Group Terraform updates",
-      "matchManagers": ["terraform"],
-      "groupName": "terraform"
     },
     {
       "description": "Group GitHub Actions updates",
