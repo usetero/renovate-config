@@ -3,8 +3,11 @@
   "extends": [
     "config:best-practices",
     ":ignoreUnstable",
+    ":dependencyDashboard",
     "mergeConfidence:all-badges"
   ],
+  "timezone": "America/New_York",
+  "dependencyDashboardTitle": "Renovate Dashboard",
   "platformAutomerge": true,
   "automergeType": "pr",
   "rebaseWhen": "behind-base-branch",
@@ -21,27 +24,27 @@
   },
   "packageRules": [
     {
-      "description": "Automerge safe update types when checks pass",
+      "description": "Automerge patch-like updates when checks pass",
       "matchUpdateTypes": ["patch", "pin", "digest"],
       "automerge": true
     },
     {
-      "description": "Automerge minor updates for Go dependencies",
-      "matchManagers": ["gomod"],
+      "description": "Automerge minor updates for stable semver dependencies",
       "matchUpdateTypes": ["minor"],
+      "matchCurrentVersion": "!/^0\\./",
       "automerge": true
     },
     {
-      "description": "Automerge minor updates for npm dependencies",
-      "matchManagers": ["npm"],
+      "description": "Require dashboard approval for minor updates on 0.x versions",
       "matchUpdateTypes": ["minor"],
-      "automerge": true
+      "matchCurrentVersion": "/^0\\./",
+      "dependencyDashboardApproval": true
     },
     {
-      "description": "Automerge and group Go patch updates to reduce noise",
+      "description": "Group Go non-major updates",
       "matchManagers": ["gomod"],
-      "matchUpdateTypes": ["patch"],
-      "groupName": "go dependencies (patch)"
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "go dependencies (non-major)"
     },
     {
       "description": "Group Terraform updates",
@@ -69,7 +72,8 @@
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["patch", "pin", "digest"],
       "minimumReleaseAge": "0 days",
-      "automerge": true
+      "automerge": true,
+      "groupName": "github actions (patch)"
     },
     {
       "description": "Do not automerge digger action updates",
@@ -136,11 +140,6 @@
       "groupName": "go dependencies (major)"
     },
     {
-      "description": "Group GitHub Actions updates",
-      "matchManagers": ["github-actions"],
-      "groupName": "github actions"
-    },
-    {
       "description": "Pin activate-hermit to releases only (commits get force-pushed away)",
       "matchManagers": ["github-actions"],
       "matchPackageNames": ["cashapp/activate-hermit"],
@@ -154,7 +153,7 @@
     "minimumReleaseAge": "0 days",
     "schedule": ["before 6am on monday"]
   },
-  "prConcurrentLimit": 5,
+  "prConcurrentLimit": 8,
   "prHourlyLimit": 4,
   "vulnerabilityAlerts": {
     "labels": ["dependencies", "security"],
