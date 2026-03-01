@@ -17,4 +17,3 @@ tasks:
     desc: Full validation and sign off
     cmds:
       - task: validate
-      - gh signoff
