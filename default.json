@@ -60,10 +60,10 @@
       "groupName": "github runners"
     },
     {
-      "description": "Automerge and group Hermit tool updates (no stability wait)",
+      "description": "Automerge and group Hermit tool updates after the shared stability window",
       "matchDatasources": ["hermit"],
       "matchUpdateTypes": ["patch", "pin"],
-      "minimumReleaseAge": "0 days",
+      "minimumReleaseAge": "3 days",
       "automerge": true,
       "groupName": "hermit tools"
     },
@@ -150,7 +150,7 @@
   "lockFileMaintenance": {
     "enabled": true,
     "automerge": true,
-    "minimumReleaseAge": "0 days",
+    "minimumReleaseAge": "3 days",
     "schedule": ["before 6am on monday"]
   },
   "prConcurrentLimit": 8,
