@@ -60,18 +60,16 @@
       "groupName": "github runners"
     },
     {
-      "description": "Automerge and group Hermit tool updates (no stability wait)",
+      "description": "Automerge and group Hermit tool updates",
       "matchDatasources": ["hermit"],
       "matchUpdateTypes": ["patch", "pin"],
-      "minimumReleaseAge": "0 days",
       "automerge": true,
       "groupName": "hermit tools"
     },
     {
-      "description": "Automerge GitHub Actions (no stability wait, except digger)",
+      "description": "Automerge GitHub Actions (except digger)",
       "matchManagers": ["github-actions"],
       "matchUpdateTypes": ["patch", "pin", "digest"],
-      "minimumReleaseAge": "0 days",
       "automerge": true,
       "groupName": "github actions (patch)"
     },
